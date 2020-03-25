@@ -20,7 +20,7 @@ def event1(offset=None):
         return 'Please supply an offset value (integer)'
 
     client = KafkaClient(hosts='{}:{}'.format(kafka_server, kafka_port))
-    topic = client.topics['{}'.format(kafka_topic)]
+    topic = client.topics[b'%b' % kafka_topic.encode()]
     consumer = topic.get_simple_consumer(
         consumer_group="my_group",
         auto_offset_reset=OffsetType.EARLIEST,
